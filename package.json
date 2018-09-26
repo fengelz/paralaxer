@@ -1,0 +1,38 @@
+{
+  "name": "paralaxer",
+  "version": "0.1.0",
+  "description": "A react component that will provide css animations on it's children, based on scroll position",
+  "main": "build/index.js",
+  "scripts": {
+    "test": "test",
+    "start": "webpack --watch",
+    "build": "webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fengelz/react-coord-compass.git"
+  },
+  "keywords": [
+    "react",
+    "component",
+    "visual"
+  ],
+  "author": "Sune Fengel",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/fengelz/paralaxer/issues"
+  },
+  "homepage": "https://github.com/fengelz/paralaxer#readme",
+  "dependencies": {
+    "react": "^16.4.1"
+  },
+  "devDependencies": {
+    "babel-loader": "^8.0.2",
+    "@babel/core": "^7.0.0-beta.51",
+    "@babel/plugin-proposal-class-properties": "^7.1.0",
+    "@babel/preset-env": "^7.0.0-beta.51",
+    "@babel/preset-react": "^7.0.0-beta.51",
+    "@babel/register": "^7.0.0-beta.51",
+    "webpack": "^2.6.1"
+  }
+}
