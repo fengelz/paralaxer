@@ -153,7 +153,7 @@ class Paralaxer extends React.PureComponent {
   render() {
     return (
       <div
-        className={`Paralax ${this.props.className || ''}`}
+        className={`${this.props.className || ''}`}
         style={this.props.styles}
         ref={this.myRef}>
         {this.renderChildren()}
