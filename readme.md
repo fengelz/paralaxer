@@ -2,9 +2,7 @@
 
 ## Introduction
 
-> A react component that will animate it's nested children based on scroll position
-
-Each child that will be animated will take an animation object containing either a to and from style object, or multiple steps from 0 - 100.
+> A react component that will animate it's nested children based on scroll position. Each child that will be animated will take an animation object containing either a to and from style object, or multiple steps from 0 - 100. The Paralaxer Wrapper takes 2 / 4 arguments start and end, which are absolute values related to the document. or tresholdStart and tresholdEnd which are relative to the Paralaxer wrappers distance from the top of the screen.
 
 Sample at https://paralaxer.fengel.com/
 
