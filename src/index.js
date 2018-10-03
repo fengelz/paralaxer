@@ -26,7 +26,7 @@ class Paralaxer extends React.PureComponent {
           : this.props.end || top + (this.props.tresholdEnd || 0),
     }
     // Run through all children and prepare from, to and style values
-    const elements = React.Children.map(this.props.children, (child) => {
+    const elements = this.recursiveMap(this.props.children, (child) => {
       return this.setupElementDefaults(child)
     })
 
@@ -34,12 +34,12 @@ class Paralaxer extends React.PureComponent {
     window.addEventListener('scroll', this.onScroll)
   }
 
-  onScroll = () => {
-    this.setState({ scrollPos: document.body.getBoundingClientRect().y })
-  }
-
   componentWillUnmount() {
     window.removeEventListener('scroll', this.onScroll)
+  }
+
+  onScroll = () => {
+    this.setState({ scrollPos: document.body.getBoundingClientRect().y })
   }
 
   setupElementDefaults(el) {
@@ -79,6 +79,22 @@ class Paralaxer extends React.PureComponent {
       return returner
     }
     return el
+  }
+
+  recursiveMap(children, fn) {
+    return React.Children.map(children, child => {
+      if (!React.isValidElement(child)) {
+        return child;
+      }
+  
+      if (child.props.children) {
+        child = React.cloneElement(child, {
+          children: this.recursiveMap(child.props.children, fn)
+        });
+      }
+  
+      return fn(child);
+    });
   }
 
   calculatePercentageScrolled() {
@@ -141,7 +157,7 @@ class Paralaxer extends React.PureComponent {
   }
 
   renderChildren() {
-    return React.Children.map(this.state.elements, (child) => {
+    return this.recursiveMap(this.state.elements, (child) => {
       return React.cloneElement(child, {
         style: { ...child.props.style, ...this.getCalculatedStyles(child) },
       })
