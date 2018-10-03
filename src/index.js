@@ -26,16 +26,8 @@ class Paralaxer extends React.PureComponent {
           : this.props.end || top + (this.props.tresholdEnd || 0),
     }
     // Run through all children and prepare from, to and style values
-    const elements = [this.props.children].map((el) => {
-      if (el.constructor.name === 'Object') {
-        return this.setupElementDefaults(el)
-      } else if (el.constructor.name === 'Array') {
-        return el.map((el) => {
-          return this.setupElementDefaults(el)
-        })
-      } else {
-        return null
-      }
+    const elements = React.Children.map(this.props.children, (child) => {
+      return this.setupElementDefaults(child)
     })
 
     this.setState({ scrollArea, elements })
@@ -51,7 +43,7 @@ class Paralaxer extends React.PureComponent {
   }
 
   setupElementDefaults(el) {
-    let animObj = {}
+    let anime = {}
     let highestPercent = 0
     if (el.props && el.props.animation) {
       // iterate the from object of the element
@@ -60,7 +52,7 @@ class Paralaxer extends React.PureComponent {
         let stylePattern = {}
         let start = {}
         const styleObj = el.props.animation[key]
-        Object.keys(styleObj).forEach((key) => {
+        Object.keys(styleObj).forEach((key, index) => {
           stylePattern[key] = styleObj[key].toString().replace(regEx, '$')
           if (styleObj[key].toString().match(regEx)) {
             start[key] = styleObj[key]
@@ -71,17 +63,20 @@ class Paralaxer extends React.PureComponent {
             start[key] = styleObj[key].toString()
           }
         })
-        highestPercent = key === 'from' ? 0 : key === 'to' ? 100 : key
-        animObj[highestPercent] = {
+        highestPercent = key === 'from' ? 0 : key === 'to' ? 100 : Number(key)
+        anime[highestPercent] = {
           stylePattern,
           start,
           percent: highestPercent,
         }
       })
       if (highestPercent < 100) {
-        animObj[100] = { ...animObj[highestPercent] }
+        anime[100] = { ...anime[highestPercent] }
+        anime[100].percent = 100
       }
-      return { animObj, ...el }
+      const returner = React.cloneElement(el, { anime })
+
+      return returner
     }
     return el
   }
@@ -95,23 +90,26 @@ class Paralaxer extends React.PureComponent {
 
     const percent = (scrollTop / scrollHeight) * 100 * -1
 
-    return Math.round(percent < 0 ? 0 : percent > 100 ? 100 : percent)
+    const percentScrolled = Math.round(
+      percent < 0 ? 0 : percent > 100 ? 100 : percent
+    )
+    return percentScrolled
   }
 
   getCalculatedStyles(el) {
-    if (!el.animObj) {
+    if (!el.props.anime) {
       return {}
     }
     const percentScrolled = this.calculatePercentageScrolled()
     let newStyle = {}
     let fromObj = null
     let toObj = null
-    for (var percent in el.animObj) {
+    for (var percent in el.props.anime) {
       if (percent <= percentScrolled) {
-        fromObj = el.animObj[percent]
+        fromObj = el.props.anime[percent]
       }
       if (percent >= percentScrolled) {
-        toObj = el.animObj[percent]
+        toObj = el.props.anime[percent]
         break
       }
     }
@@ -151,11 +149,9 @@ class Paralaxer extends React.PureComponent {
   }
 
   render() {
+    const { start, end, tresholdStart, tresholdEnd, ...other } = this.props
     return (
-      <div
-        className={`${this.props.className || ''}`}
-        style={this.props.styles}
-        ref={this.myRef}>
+      <div {...other} ref={this.myRef}>
         {this.renderChildren()}
       </div>
     )
