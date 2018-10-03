@@ -11,71 +11,77 @@ Sample at https://paralaxer.fengel.com/
 ```javascript
 
 <Paralaxer start={0} end={this.state.docHeight / 1.5}>
-        <h1 
-        style={{ transformOrigin: 'top left'}}
-        animation={{
-          from:{ transform: 'rotate(-360deg) skew(30deg) scale(3)'}, 
-          to:{ transform: 'rotate(0deg) skew(0deg) scale(1)'},
-        }}>
-        <Paralaxer start={0} end={this.state.docHeight}>
-          <span 
-              animation={{
-                from:{ transform: 'translateY(-200vh)'}, 
-                to:{ transform: 'translateY(0)'},
-              }}
-              >P</span>
-            <span 
-              animation={{
-                from:{ transform: 'translateY(-150vh)'}, 
-                to:{ transform: 'translateY(0)'},
-              }}
-              >a</span>
-            <span 
-              animation={{
-                from:{ transform: 'translateY(-100vh)'}, 
-                to:{ transform: 'translateY(0)'},
-              }}
-              >r</span>
-            <span 
-              animation={{
-                from:{ transform: 'translateY(-70vh)'}, 
-                to:{ transform: 'translateY(0)'},
-              }}
-              >a</span>
-            <span 
-            animation={{
-              from:{ opacity: 0.5}, 
-              to:{ opacity: 1},
-            }}
-              >l</span>
-            <span 
-              animation={{
-                from:{ transform: 'translateY(70vh)'}, 
-                to:{ transform: 'translateY(0)'},
-              }}
-              >a</span>
-            <span 
-             animation={{
-              from:{ transform: 'translateY(100vh)'}, 
-              to:{ transform: 'translateY(0)'},
-            }}
-              >x</span>
-            <span 
-              animation={{
-                from:{ transform: 'translateY(150vh)'},
-                to:{ transform: 'translateY(0)'},
-              }}
-              >e</span>
-            <span 
-              animation={{
-                from:{ transform: 'translateY(200vh)'}, 
-                to:{ transform: 'translateY(0)'},
-              }}
-              >r</span>
-
-            </Paralaxer>
-          </h1>
-        </Paralaxer>
+  <h1 
+  style={{ transformOrigin: 'center'}}
+  animation={{
+    from:{ transform: 'rotate(360deg) skew(0deg) scale(1)'}, 
+    to:{ transform: 'rotate(0deg) skew(0deg) scale(1)'},
+  }}>
+    <span 
+      animation={{
+        0:{ transform: 'translateY(0vh)'},
+        50:{ transform: 'translateY(-200vh)'}, 
+        100:{ transform: 'translateY(0vh)'},
+      }}
+      >P</span>
+    <span 
+      animation={{
+        0:{ transform: 'translateY(0vh)'},
+        50:{ transform: 'translateY(-150vh)'}, 
+        100:{ transform: 'translateY(0vh)'},
+      }}
+      >a</span>
+    <span 
+      animation={{
+        0:{ transform: 'translateY(0vh)'},
+        50:{ transform: 'translateY(-100vh)'}, 
+        100:{ transform: 'translateY(0vh)'},
+      }}
+      >r</span>
+    <span 
+      animation={{
+        0:{ transform: 'translateY(0vh)'},
+        50:{ transform: 'translateY(-70vh)'}, 
+        100:{ transform: 'translateY(0vh)'},
+      }}
+      >a</span>
+    <span 
+    animation={{
+      0:{ opacity: 1},
+      50:{ opacity: 0.5}, 
+      100:{ opacity: 1},
+    }}
+      >l</span>
+    <span 
+      animation={{
+        0:{ transform: 'translateY(0vh)'},
+        50:{ transform: 'translateY(70vh)'}, 
+        100:{ transform: 'translateY(0vh)'},
+      }}
+      >a</span>
+    <span 
+      animation={{
+      0:{ transform: 'translateY(0vh)'},
+      50:{ transform: 'translateY(100vh)'}, 
+      100:{ transform: 'translateY(0vh)'},
+    }}
+      >x</span>
+    <span 
+      animation={{
+        0:{ transform: 'translateY(0vh)'},
+        50:{ transform: 'translateY(150vh)'},
+        100:{ transform: 'translateY(0vh)'},
+      }}
+      >e</span>
+    <span 
+      animation={{
+        0:{ transform: 'translateY(0vh)'},
+        50:{ transform: 'translateY(200vh)'}, 
+        100:{ transform: 'translateY(0vh)'},
+      }}
+      >r</span>
+  </h1>
+</Paralaxer>
 ```
 
 ## Installation
