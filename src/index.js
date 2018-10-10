@@ -39,7 +39,7 @@ class Paralaxer extends React.PureComponent {
   }
 
   onScroll = () => {
-    this.setState({ scrollPos: document.body.getBoundingClientRect().y })
+    this.setState({ scrollPos: document.body.getBoundingClientRect().top })
   }
 
   setupElementDefaults(el) {
@@ -82,19 +82,19 @@ class Paralaxer extends React.PureComponent {
   }
 
   recursiveMap(children, fn) {
-    return React.Children.map(children, child => {
+    return React.Children.map(children, (child) => {
       if (!React.isValidElement(child)) {
-        return child;
+        return child
       }
-  
+
       if (child.props.children) {
         child = React.cloneElement(child, {
-          children: this.recursiveMap(child.props.children, fn)
-        });
+          children: this.recursiveMap(child.props.children, fn),
+        })
       }
-  
-      return fn(child);
-    });
+
+      return fn(child)
+    })
   }
 
   calculatePercentageScrolled() {
@@ -129,12 +129,15 @@ class Paralaxer extends React.PureComponent {
         break
       }
     }
+    if (!fromObj && !toObj) {
+      return newStyle
+    }
 
     for (var key in fromObj.stylePattern) {
       let style = `${fromObj.stylePattern[key]}`
       for (let i = 0; i < fromObj.start[key].length; i++) {
         const from = fromObj.start[key][i]
-        const to = toObj.start[key][i]
+        const to = toObj && toObj.start[key][i]
         let diff = Math.abs(from - to)
         const interval = toObj.percent - fromObj.percent
         const scrolled =
